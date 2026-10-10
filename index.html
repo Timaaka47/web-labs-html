@@ -1,0 +1,1128 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="description" content="Лабораторные работы по дисциплине «Информатика» — НИТУ МИСИС">
+    <meta name="keywords" content="HTML, лабораторные, информатика, НИТУ МИСИС">
+    <meta name="author" content="Студент">
+    <title>Лабораторные работы — Информатика | НИТУ МИСИС</title>
+    <style>
+        :root {
+            --misis-dark: #003C71;
+            --misis-blue: #0072BC;
+            --misis-light: #E6F0FA;
+            --text: #2c3e50;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: var(--text);
+            line-height: 1.6;
+            min-height: 100vh;
+            background-color: #eef3f9;
+            background-image:
+                radial-gradient(circle at 15% 5%, rgba(0,114,188,0.10) 0%, transparent 40%),
+                radial-gradient(circle at 90% 95%, rgba(0,60,113,0.08) 0%, transparent 40%),
+                radial-gradient(circle, rgba(0,60,113,0.07) 1px, transparent 1px);
+            background-size: 100% 100%, 100% 100%, 26px 26px;
+            background-attachment: fixed;
+        }
+
+        header {
+            background: linear-gradient(135deg, #003C71 0%, #0072BC 100%);
+            color: #fff;
+            padding: 22px 40px;
+            box-shadow: 0 4px 15px rgba(0,60,113,0.35);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
+	    min-height: 110px;
+        }
+
+        .header-text h1 {
+            font-size: 24px;
+            margin-bottom: 6px;
+            letter-spacing: 0.4px;
+            font-weight: 700;
+	    color: #fff;
+        }
+
+        .header-text p {
+            font-size: 13.5px;
+            opacity: 0.9;
+	    color: #fff;
+        }
+
+        .header-logo {
+            flex-shrink: 0;
+            background: #fff;
+            border-radius: 12px;
+            padding: 10px 18px;
+            box-shadow: 0 4px 14px rgba(0,0,0,0.25);
+            display: flex;
+            align-items: center;
+	    margin-right: 20px;
+        }
+
+        .header-logo img {
+            display: block;
+            height: 70px;
+            width: auto;
+        }
+
+        .container {
+            display: flex;
+            max-width: 1200px;
+            margin: 30px auto;
+            padding: 0 20px;
+            gap: 25px;
+            min-height: calc(100vh - 200px);
+        }
+
+        aside { width: 280px; flex-shrink: 0; }
+
+        .menu {
+            background: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 16px rgba(0,60,113,0.12);
+            overflow: hidden;
+            position: sticky;
+            top: 20px;
+        }
+
+        .menu-title {
+            background: linear-gradient(135deg, #003C71, #0072BC);
+            color: #fff;
+            padding: 15px 20px;
+            font-size: 15px;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+        }
+
+        .menu ul { list-style: none; }
+        .menu li { border-bottom: 1px solid #eef1f5; }
+        .menu li:last-child { border-bottom: none; }
+
+        .menu a {
+            display: block;
+            padding: 13px 20px;
+            color: #2c3e50;
+            text-decoration: none;
+            font-size: 14.5px;
+            transition: all 0.25s ease;
+            border-left: 4px solid transparent;
+        }
+
+        .menu a:hover {
+            background: #f0f7fc;
+            color: var(--misis-dark);
+            border-left-color: var(--misis-blue);
+        }
+
+        .menu a.active {
+            background: var(--misis-light);
+            color: var(--misis-dark);
+            font-weight: 600;
+            border-left-color: var(--misis-dark);
+        }
+
+        .download-block {
+            padding: 15px;
+            background: #f7fafd;
+            border-top: 1px solid #eef1f5;
+        }
+
+        .download-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            padding: 14px 16px;
+            background: linear-gradient(135deg, #003C71, #0072BC);
+            color: #fff;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 600;
+            border-radius: 8px;
+            transition: all 0.25s;
+            box-shadow: 0 3px 10px rgba(0,60,113,0.25);
+            border: none;
+            cursor: pointer;
+        }
+
+        .download-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(0,60,113,0.35);
+        }
+
+        .download-btn:active { transform: translateY(0); }
+
+        .download-btn svg {
+            width: 18px;
+            height: 18px;
+            flex-shrink: 0;
+        }
+
+        main { flex: 1; min-width: 0; }
+
+        .page { display: none; animation: fadeIn 0.35s ease; }
+        .page.active { display: block; }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(8px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+
+        .card {
+            background: #fff;
+            border-radius: 10px;
+            box-shadow: 0 2px 12px rgba(0,60,113,0.1);
+            padding: 30px 35px;
+            margin-bottom: 20px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .card h2 {
+            font-size: 22px;
+            color: #000;
+            margin-bottom: 6px;
+            padding-bottom: 12px;
+            border-bottom: 2px solid var(--misis-light);
+            font-weight: 700;
+        }
+
+        .card .subtitle {
+            font-size: 13px;
+            color: #555;
+            margin-bottom: 22px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .card h3 {
+            font-size: 17px;
+            color: #000;
+            margin: 24px 0 10px;
+            font-weight: 700;
+        }
+
+        .card h4 {
+            font-size: 15px;
+            color: #000;
+            margin: 18px 0 8px;
+            font-weight: 700;
+        }
+
+        .card p, .card li {
+            font-size: 15px;
+            color: #2c3e50;
+            margin-bottom: 8px;
+        }
+
+        .card ol, .card ul { padding-left: 22px; margin-bottom: 12px; }
+        .card ol li, .card ul li { margin-bottom: 6px; }
+
+        code {
+            background: #eef3f9;
+            color: #b8005c;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-family: 'Consolas', 'Courier New', monospace;
+            font-size: 13.5px;
+        }
+
+        pre {
+            background: #1e2a3a;
+            color: #e6edf3;
+            padding: 16px 20px;
+            border-radius: 8px;
+            overflow-x: auto;
+            font-family: 'Consolas', 'Courier New', monospace;
+            font-size: 13.5px;
+            line-height: 1.5;
+            margin: 12px 0;
+            border-left: 4px solid var(--misis-blue);
+        }
+
+        pre code {
+            background: transparent;
+            color: inherit;
+            padding: 0;
+            border-radius: 0;
+            font-size: inherit;
+        }
+
+        .window-mockup {
+            border: 1px solid #b8c5d6;
+            border-radius: 8px;
+            overflow: hidden;
+            margin: 16px 0;
+            box-shadow: 0 4px 14px rgba(0,60,113,0.12);
+            background: #fff;
+        }
+
+        .window-titlebar {
+            background: linear-gradient(#f5f7fa, #e8edf4);
+            padding: 7px 12px;
+            font-size: 12px;
+            color: #4a5568;
+            border-bottom: 1px solid #d0d7e2;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .window-titlebar .dots { display: flex; gap: 5px; }
+
+        .window-titlebar .dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: #d0d7e2;
+        }
+
+        .window-titlebar .dot.red { background: #ff6058; }
+        .window-titlebar .dot.yellow { background: #ffbd2e; }
+        .window-titlebar .dot.green { background: #28c940; }
+
+        .window-titlebar .title { margin-left: 8px; font-weight: 500; }
+
+        .window-body {
+            padding: 14px 18px;
+            font-family: 'Consolas', 'Courier New', monospace;
+            font-size: 13px;
+            line-height: 1.55;
+            background: #fff;
+            color: #24292f;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }
+
+        .window-body .tag { color: #0550ae; }
+        .window-body .attr { color: #8250df; }
+        .window-body .str  { color: #0a3069; }
+
+        .browser-mockup {
+            border: 1px solid #b8c5d6;
+            border-radius: 8px;
+            overflow: hidden;
+            margin: 16px 0;
+            box-shadow: 0 4px 14px rgba(0,60,113,0.12);
+            background: #fff;
+        }
+
+        .browser-toolbar {
+            background: #f5f7fa;
+            padding: 8px 12px;
+            border-bottom: 1px solid #d0d7e2;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .browser-toolbar .nav-btns {
+            display: flex;
+            gap: 6px;
+            color: #7a869a;
+            font-size: 14px;
+        }
+
+        .browser-toolbar .url {
+            flex: 1;
+            background: #fff;
+            border: 1px solid #d0d7e2;
+            border-radius: 14px;
+            padding: 4px 14px;
+            font-size: 12.5px;
+            color: #4a5568;
+        }
+
+        .browser-content {
+            padding: 20px 24px;
+            background: #fff;
+            font-family: 'Times New Roman', Times, serif;
+            font-size: 15px;
+            line-height: 1.5;
+            min-height: 70px;
+            color: #000;
+        }
+
+        .note {
+            background: #fffbea;
+            border-left: 4px solid #f1c40f;
+            padding: 12px 18px;
+            border-radius: 0 6px 6px 0;
+            margin-top: 18px;
+            font-size: 13.5px;
+            color: #7d6608;
+        }
+
+        .note strong { color: #b7950b; }
+
+        .tip {
+            background: var(--misis-light);
+            border-left: 4px solid var(--misis-blue);
+            padding: 12px 18px;
+            border-radius: 0 6px 6px 0;
+            margin: 14px 0;
+            font-size: 14px;
+            color: var(--misis-dark);
+        }
+
+        .tip strong { color: var(--misis-dark); }
+
+        .source-text {
+            background: #f8fafc;
+            border: 1px dashed #c8d4e2;
+            padding: 16px 20px;
+            border-radius: 8px;
+            margin: 14px 0;
+            font-size: 14px;
+            color: #2c3e50;
+            max-height: 320px;
+            overflow-y: auto;
+        }
+
+        .source-text p { margin-bottom: 10px; font-size: 14px; }
+        .source-text h4 { margin: 12px 0 6px; font-size: 14.5px; }
+
+        .step {
+            background: #fff;
+            border-left: 3px solid var(--misis-blue);
+            padding: 4px 0 4px 18px;
+            margin: 20px 0;
+        }
+
+        .step-title {
+            font-weight: 700;
+            color: #000;
+            font-size: 15.5px;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .step-title .step-num {
+            background: linear-gradient(135deg, #003C71, #0072BC);
+            color: #fff;
+            width: 26px;
+            height: 26px;
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 13px;
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+
+        .home-bg {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .home-watermark {
+            position: absolute;
+            top: -30px;
+            right: -50px;
+            width: 480px;
+            height: 480px;
+            opacity: 0.10;
+            pointer-events: none;
+            z-index: 0;
+	    object-fit: contain;
+        }
+
+        .home-bg .card { position: relative; z-index: 1; }
+
+        .welcome-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 18px;
+            margin-top: 25px;
+        }
+
+        .welcome-card {
+            background: #fff;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,60,113,0.08);
+            padding: 22px;
+            cursor: pointer;
+            transition: all 0.3s;
+            border: 2px solid transparent;
+            text-align: center;
+        }
+
+        .welcome-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 25px rgba(0,60,113,0.2);
+            border-color: var(--misis-blue);
+        }
+
+        .welcome-card .num {
+            display: inline-block;
+            width: 48px;
+            height: 48px;
+            line-height: 48px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #003C71, #0072BC);
+            color: #fff;
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 12px;
+        }
+
+        .welcome-card h3 {
+            font-size: 15px;
+            color: #000;
+            margin: 0 0 6px;
+            padding: 0;
+            border: none;
+            font-weight: 700;
+        }
+
+        .welcome-card p {
+            font-size: 12.5px;
+            color: #6b7a8d;
+            margin: 0;
+        }
+
+        footer {
+            text-align: center;
+            padding: 25px 20px;
+            color: #7a869a;
+            font-size: 13px;
+            border-top: 1px solid #dbe4ee;
+            margin-top: 20px;
+        }
+
+        footer a { color: var(--misis-blue); text-decoration: none; }
+        footer a:hover { text-decoration: underline; }
+
+        @media (max-width: 820px) {
+            header { flex-direction: column; text-align: center; padding: 20px; }
+            .header-text h1 { font-size: 18px; }
+            .header-logo img { height: 50px; }
+            .container { flex-direction: column; }
+            aside { width: 100%; }
+            .menu { position: static; }
+            .card { padding: 22px 20px; }
+            .home-watermark { width: 280px; height: 280px; top: -30px; right: -60px; }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <div class="header-text">
+        <h1>Лабораторные работы по дисциплине «Информатика»</h1>
+        <p>Национальный исследовательский технологический университет «МИСИС»</p>
+    </div>
+    <div class="header-logo">
+    	<img src="files/misis-logo.png" alt="Логотип НИТУ МИСИС"
+    </div>>
+</header>
+
+<div class="container">
+
+    <aside>
+        <nav class="menu">
+            <div class="menu-title">Навигация</div>
+            <ul>
+                <li><a href="#" data-page="home" class="active">Главная</a></li>
+                <li><a href="#" data-page="lab1">Лабораторная №1</a></li>
+                <li><a href="#" data-page="lab2">Лабораторная №2</a></li>
+                <li><a href="#" data-page="lab3">Лабораторная №3</a></li>
+                <li><a href="#" data-page="lab4">Лабораторная №4</a></li>
+                <li><a href="#" data-page="lab5">Лабораторная №5</a></li>
+            </ul>
+            <div class="download-block">
+                <a href="files/methodichka.doc" class="download-btn" download>
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                        <polyline points="7 10 12 15 17 10"/>
+                        <line x1="12" y1="15" x2="12" y2="3"/>
+                    </svg>
+                    Скачать методичку
+                </a>
+            </div>
+        </nav>
+    </aside>
+
+    <main>
+
+        <div class="page active home-bg" id="page-home">
+           <img class="home-watermark" src="files/misis-logo.png" alt="">
+
+            <div class="card">
+                <h2>Добро пожаловать!</h2>
+                <p class="subtitle">Выберите лабораторную работу</p>
+                <p>Этот сайт создан для студентов, которые только начинают знакомиться с HTML. Для каждой лабораторной работы вы найдёте подробное пошаговое руководство с примерами кода и визуальными пояснениями.</p>
+                <div class="welcome-grid">
+                    <div class="welcome-card" data-page="lab1"><div class="num">1</div><h3>Создание веб-страницы</h3><p>Структура, заголовок, метаданные</p></div>
+                    <div class="welcome-card" data-page="lab2"><div class="num">2</div><h3>Форматирование текста</h3><p>Заголовки, абзацы, списки, цвета</p></div>
+                    <div class="welcome-card" data-page="lab3"><div class="num">3</div><h3>Графика и таблицы</h3><p>Изображения и разметка таблиц</p></div>
+                    <div class="welcome-card" data-page="lab4"><div class="num">4</div><h3>Гиперссылки</h3><p>Оглавление и навигация</p></div>
+                    <div class="welcome-card" data-page="lab5"><div class="num">5</div><h3>Единый стиль сайта</h3><p>Объединение страниц</p></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="page" id="page-lab1">
+            <div class="card">
+                <h2>Лабораторная работа №1</h2>
+                <p class="subtitle">Создание простейшей веб-страницы</p>
+                <h3>Цель работы</h3>
+                <p>Познакомиться со структурой HTML-документа и научиться создавать простейшую веб-страницу с заголовком, метаданными и основным содержимым.</p>
+                <h3>Краткое задание</h3>
+                <ol>
+                    <li>Создать простейшую веб-страницу и отобразить структуру её главных составных частей.</li>
+                    <li>Задать заголовок страницы и метаданные (ключевые слова, краткое описание, тип страницы, имя автора).</li>
+                    <li>Добавить в тело документа Ф.И.О., курс, номер группы, адрес и телефон.</li>
+                </ol>
+                <h3>Подробная пошаговая инструкция</h3>
+
+                <div class="step">
+                    <div class="step-title"><span class="step-num">1</span> Создаём файл и открываем Блокнот</div>
+                    <p>Откройте Блокнот (или Notepad++) и создайте новый файл. Сразу сохраните его под именем <code>contacts.html</code>. В окне «Сохранить как» выберите тип файла «Все файлы» и кодировку UTF-8.</p>
+                    <div class="tip"><strong>Важно:</strong> если выбрать тип «Текстовый документ», файл сохранится с расширением <code>.txt</code>, и браузер его не откроет.</div>
+                </div>
+
+                <div class="step">
+                    <div class="step-title"><span class="step-num">2</span> Создаём базовую структуру HTML</div>
+                    <p>Введите следующий код:</p>
+                    <div class="window-mockup">
+                        <div class="window-titlebar"><div class="dots"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span></div><span class="title">contacts.html — Блокнот</span></div>
+                        <div class="window-body"><span class="tag">&lt;!DOCTYPE html&gt;</span>
+<span class="tag">&lt;html&gt;</span>
+<span class="tag">&lt;head&gt;</span>
+
+<span class="tag">&lt;/head&gt;</span>
+<span class="tag">&lt;body&gt;</span>
+
+<span class="tag">&lt;/body&gt;</span>
+<span class="tag">&lt;/html&gt;</span></div>
+                    </div>
+                </div>
+
+                <div class="step">
+                    <div class="step-title"><span class="step-num">3</span> Добавляем заголовок и метаданные</div>
+                    <p>Внутри <code>&lt;head&gt;</code> добавьте заголовок и метаданные:</p>
+                    <div class="window-mockup">
+                        <div class="window-titlebar"><div class="dots"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span></div><span class="title">contacts.html — Блокнот</span></div>
+                        <div class="window-body"><span class="tag">&lt;!DOCTYPE html&gt;</span>
+<span class="tag">&lt;html&gt;</span>
+<span class="tag">&lt;head&gt;</span>
+    <span class="tag">&lt;title&gt;</span>Контактная информация<span class="tag">&lt;/title&gt;</span>
+    <span class="tag">&lt;meta</span> <span class="attr">charset</span>=<span class="str">"UTF-8"</span><span class="tag">&gt;</span>
+    <span class="tag">&lt;meta</span> <span class="attr">name</span>=<span class="str">"description"</span> <span class="attr">content</span>=<span class="str">"Контактная информация студента группы ..."</span><span class="tag">&gt;</span>
+    <span class="tag">&lt;meta</span> <span class="attr">name</span>=<span class="str">"keywords"</span>    <span class="attr">content</span>=<span class="str">"студент, адрес, телефон, контакты"</span><span class="tag">&gt;</span>
+    <span class="tag">&lt;meta</span> <span class="attr">name</span>=<span class="str">"author"</span>      <span class="attr">content</span>=<span class="str">"Иванов Иван Иванович"</span><span class="tag">&gt;</span>
+<span class="tag">&lt;/head&gt;</span>
+<span class="tag">&lt;body&gt;</span>
+
+<span class="tag">&lt;/body&gt;</span>
+<span class="tag">&lt;/html&gt;</span></div>
+                    </div>
+                </div>
+
+                <div class="step">
+                    <div class="step-title"><span class="step-num">4</span> Добавляем контактные данные</div>
+                    <p>Внутри <code>&lt;body&gt;</code> добавьте свои данные. Каждая строка завершается тегом <code>&lt;br&gt;</code>:</p>
+                    <div class="window-mockup">
+                        <div class="window-titlebar"><div class="dots"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span></div><span class="title">contacts.html — Блокнот</span></div>
+                        <div class="window-body"><span class="tag">&lt;body&gt;</span>
+    Студент: Иванов Иван Иванович<span class="tag">&lt;br&gt;</span>
+    Курс: 1<span class="tag">&lt;br&gt;</span>
+    Группа: БИВТ-26-1<span class="tag">&lt;br&gt;</span>
+    Адрес: г. Москва, Ленинский пр-т, д. 4<span class="tag">&lt;br&gt;</span>
+    Телефон: +7 (495) 123-45-67
+<span class="tag">&lt;/body&gt;</span></div>
+                    </div>
+                </div>
+
+                <div class="step">
+                    <div class="step-title"><span class="step-num">5</span> Сохраняем и открываем в браузере</div>
+                    <div class="browser-mockup">
+                        <div class="browser-toolbar"><div class="nav-btns">◀ ▶ ⟳</div><div class="url">file:///C:/site/contacts.html</div></div>
+                        <div class="browser-content">
+                            <div style="font-family: Arial, sans-serif; font-size: 14px; color: #000;">
+                                Студент: Иванов Иван Иванович<br>Курс: 1<br>Группа: БИВТ-26-1<br>Адрес: г. Москва, Ленинский пр-т, д. 4<br>Телефон: +7 (495) 123-45-67
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="note"><strong>Совет:</strong> если при открытии файла вместо текста появляются «кракозябры», пересохраните файл в кодировке UTF-8.</div>
+            </div>
+        </div>
+
+        <div class="page" id="page-lab2">
+            <div class="card">
+                <h2>Лабораторная работа №2</h2>
+                <p class="subtitle">Форматирование текста</p>
+                <h3>Цель работы</h3>
+                <p>Научиться форматировать текст с помощью HTML-тегов: заголовки, абзацы, списки, а также управлять цветом текста и фона.</p>
+                <h3>Краткое задание</h3>
+                <ol>
+                    <li>Преобразовать текстовый файл в формат HTML.</li>
+                    <li>Отформатировать текст в соответствии с требованиями.</li>
+                </ol>
+
+                <h3>Исходный текст</h3>
+                <p>Скопируйте этот текст в свой файл <code>bank.html</code>:</p>
+                <div class="source-text">
+                    <h4>Выбор обслуживающего банка</h4>
+                    <p>Сегодня в России более 1300 кредитных организаций. Большинство из них являются универсальными банками и способны обслужить подавляющую часть юридических лиц и индивидуальных предпринимателей.</p>
+                    <p>Действительно, непростая это задача — найти тот самый банк, который не только сохранит, но и приумножит ваши финансы, но и поможет разработать и реализовать программу эффективного развития бизнеса.</p>
+                    <p>Возможно ли выбрать такой банк из огромного множества? Возможно, если при выборе учитывать следующие обстоятельства:</p>
+                    <h4>Возраст банка</h4>
+                    <p>Если российскому коммерческому банку более десяти лет — это значит, что он прошёл «славный путь» выживания.</p>
+                    <h4>Репутация, имидж банка</h4>
+                    <p>Если банк не менял своё имя, не был несколько раз продан новым владельцам — такой банк заслуживает вашего внимания.</p>
+                    <h4>Размеры и рейтинг банка</h4>
+                    <p>Размеры банка сами по себе могут свидетельствовать лишь об объёме его обязательств и активов.</p>
+                    <h4>Организация банка</h4>
+                    <p>Предпочтительнее иметь дело с банком, организационно-правовая форма которого — открытое акционерное общество.</p>
+                    <h4>Надёжность банка</h4>
+                    <p>Как правило, рейтинги надёжности кредитных организаций рассчитывают по уровню мгновенной ликвидности.</p>
+                    <h4>Качество расчётно-кассового обслуживания</h4>
+                    <p>Для обеспечения универсальности и высокого качества обслуживания клиентов банк должен иметь набор соответствующих лицензий.</p>
+                    <h4>Кредитная политика банка</h4>
+                    <p>Кредитная политика банка верная и оптимальная, если банк обеспечивает своих клиентов кредитными ресурсами в необходимых объёмах.</p>
+                    <h4>Оптимизация деятельности клиента</h4>
+                    <p>Банк должен быть опорным финансовым партнёром предприятия, способным реально оказать содействие в оптимизации финансово-хозяйственной деятельности клиента.</p>
+                </div>
+
+                <h3>Подробная пошаговая инструкция</h3>
+
+                <div class="step">
+                    <div class="step-title"><span class="step-num">1</span> Создаём файл</div>
+                    <p>Скопируйте исходный текст в Блокнот и сохраните как <code>bank.html</code> (UTF-8, тип «Все файлы»).</p>
+                </div>
+
+                <div class="step">
+                    <div class="step-title"><span class="step-num">2</span> Добавляем структуру HTML</div>
+<pre><code>&lt;!DOCTYPE html&gt;
+&lt;html lang="ru"&gt;
+&lt;head&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;title&gt;Выбор обслуживающего банка&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    ... здесь будет ваш текст ...
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+                </div>
+
+                <div class="step">
+                    <div class="step-title"><span class="step-num">3</span> Оформляем первый заголовок</div>
+<pre><code>&lt;h1 style="text-align: center; color: #C00000;"&gt;
+    Выбор обслуживающего банка
+&lt;/h1&gt;</code></pre>
+                </div>
+
+                <div class="step">
+                    <div class="step-title"><span class="step-num">4</span> Оформляем остальные заголовки</div>
+<pre><code>&lt;h2 style="text-align: left; color: #008000;"&gt;Возраст банка&lt;/h2&gt;</code></pre>
+                </div>
+
+                <div class="step">
+                    <div class="step-title"><span class="step-num">5</span> Оформляем абзацы текста</div>
+<pre><code>&lt;p style="text-align: justify;"&gt;
+    Сегодня в России более 1300 кредитных организаций...
+&lt;/p&gt;</code></pre>
+                </div>
+
+                <div class="step">
+                    <div class="step-title"><span class="step-num">6</span> Вставляем оглавление</div>
+<pre><code>&lt;p style="text-align: left;"&gt;
+    &lt;b&gt;Содержание:&lt;/b&gt;
+    Возраст банка • Репутация, имидж банка •
+    Размеры и рейтинг банка • Организация банка •
+    Надёжность банка • Качество расчётно-кассового
+    обслуживания • Кредитная политика банка •
+    Оптимизация деятельности клиента
+&lt;/p&gt;</code></pre>
+                </div>
+
+                <div class="step">
+                    <div class="step-title"><span class="step-num">7</span> Настраиваем цвета страницы</div>
+<pre><code>&lt;body style="background-color: #EEFFFF; color: #000066;"&gt;</code></pre>
+                </div>
+
+                <div class="step">
+                    <div class="step-title"><span class="step-num">8</span> Проверяем результат</div>
+                    <div class="browser-mockup">
+                        <div class="browser-toolbar"><div class="nav-btns">◀ ▶ ⟳</div><div class="url">file:///C:/site/bank.html</div></div>
+                        <div class="browser-content" style="background: #EEFFFF; color: #000066;">
+                            <h1 style="text-align: center; color: #C00000; font-family: 'Times New Roman', serif; font-size: 22px; margin-bottom: 10px;">Выбор обслуживающего банка</h1>
+                            <p style="text-align: justify; font-family: 'Times New Roman', serif; font-size: 14px;">Сегодня в России более 1300 кредитных организаций...</p>
+                            <h2 style="text-align: left; color: #008000; font-family: 'Times New Roman', serif; font-size: 18px;">Возраст банка</h2>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="note"><strong>Совет:</strong> не забывайте про точки с запятой в конце CSS-свойств.</div>
+            </div>
+        </div>
+
+        <div class="page" id="page-lab3">
+            <div class="card">
+                <h2>Лабораторная работа №3</h2>
+                <p class="subtitle">Вставка графических изображений. Форматирование таблиц</p>
+                <h3>Цель работы</h3>
+                <p>Научиться вставлять изображения и форматировать таблицы.</p>
+                <h3>Краткое задание</h3>
+                <ol>
+                    <li>Создать новый HTML-документ, скопировав содержимое из файла Word.</li>
+                    <li>Вставить в документ графическое изображение и выровнять его.</li>
+                    <li>Добавить и разметить таблицу, задать цвет фона.</li>
+                </ol>
+
+                <h3>Подробная пошаговая инструкция</h3>
+
+                <div class="step">
+                    <div class="step-title"><span class="step-num">1</span> Создаём файл page2.html</div>
+                    <p>Создайте в Блокноте новый файл, сохраните как <code>page2.html</code> и скопируйте текст раздела 1.2 методички.</p>
+                </div>
+
+                <div class="step">
+                    <div class="step-title"><span class="step-num">2</span> Оформляем структуру и текст</div>
+<pre><code>&lt;!DOCTYPE html&gt;
+&lt;html lang="ru"&gt;
+&lt;head&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;title&gt;Роль кредитных организаций в экономике&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;h1 style="text-align: center;"&gt;1.2. Роль кредитных организаций в экономике&lt;/h1&gt;
+    &lt;blockquote style="text-align: justify;"&gt;
+        В 1999–2003 гг. наблюдалась устойчивая положительная динамика...
+    &lt;/blockquote&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+                </div>
+
+                <div class="step">
+                    <div class="step-title"><span class="step-num">3</span> Вставляем изображение</div>
+<pre><code>&lt;div style="text-align: center;"&gt;
+    &lt;img src="scheme.gif" alt="Схема факторов" width="500"&gt;
+&lt;/div&gt;
+&lt;p style="text-align: center;"&gt;&lt;i&gt;Рис. 1.2.1. Факторы, осложняющие экономическую ситуацию&lt;/i&gt;&lt;/p&gt;</code></pre>
+                </div>
+
+                <div class="step">
+                    <div class="step-title"><span class="step-num">4</span> Создаём файл page4.html с таблицей</div>
+<pre><code>&lt;table border="1" cellpadding="10" cellspacing="0"
+       style="width: 100%; background-color: #EEEEFF; border-collapse: collapse;"&gt;
+    &lt;caption style="text-align: right; font-weight: bold;"&gt;
+        Таблица 1.4.1. Блоки управления кредитных организаций
+    &lt;/caption&gt;
+    &lt;tr style="background-color: #DDDDFF;"&gt;
+        &lt;th style="width: 30%; text-align: left;"&gt;Блок управления&lt;/th&gt;
+        &lt;th style="text-align: center;"&gt;Описание&lt;/th&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+        &lt;td style="text-align: left; vertical-align: top;"&gt;Собрание акционеров&lt;/td&gt;
+        &lt;td style="text-align: justify;"&gt;Высший орган управления банком...&lt;/td&gt;
+    &lt;/tr&gt;
+&lt;/table&gt;</code></pre>
+                </div>
+
+                <div class="step">
+                    <div class="step-title"><span class="step-num">5</span> Добавляем фоновое изображение</div>
+<pre><code>&lt;body style="background-image: url('back01.jpg'); background-repeat: repeat;"&gt;</code></pre>
+                </div>
+
+                <div class="step">
+                    <div class="step-title"><span class="step-num">6</span> Проверяем результат</div>
+                    <div class="browser-mockup">
+                        <div class="browser-toolbar"><div class="nav-btns">◀ ▶ ⟳</div><div class="url">file:///C:/site/page4.html</div></div>
+                        <div class="browser-content" style="font-family: Arial, sans-serif;">
+                            <table style="width: 100%; border-collapse: collapse; background: #EEEEFF; border: 1px solid #999;">
+                                <tr style="background: #DDDDFF;">
+                                    <th style="border: 1px solid #999; padding: 8px; text-align: left; width: 30%;">Блок управления</th>
+                                    <th style="border: 1px solid #999; padding: 8px;">Описание</th>
+                                </tr>
+                                <tr>
+                                    <td style="border: 1px solid #999; padding: 8px; font-size: 12px; vertical-align: top;">Собрание акционеров</td>
+                                    <td style="border: 1px solid #999; padding: 8px; font-size: 12px;">Высший орган управления банком…</td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="page" id="page-lab4">
+            <div class="card">
+                <h2>Лабораторная работа №4</h2>
+                <p class="subtitle">Создание гиперссылок</p>
+                <h3>Цель работы</h3>
+                <p>Научиться создавать внутренние и внешние гиперссылки, использовать таблицы для разметки.</p>
+                <h3>Краткое задание</h3>
+                <ol>
+                    <li>Добавить в начало документа оглавление с гиперссылками.</li>
+                    <li>Создать новый HTML-документ, разметить страницу таблицей.</li>
+                    <li>Разместить меню навигации.</li>
+                </ol>
+
+                <h3>Подробная пошаговая инструкция</h3>
+
+                <div class="step">
+                    <div class="step-title"><span class="step-num">1</span> Делаем оглавление активным в bank.html</div>
+<pre><code>&lt;h2&gt;&lt;a name="razdel1"&gt;&lt;/a&gt;Возраст банка&lt;/h2&gt;
+&lt;h2&gt;&lt;a name="razdel2"&gt;&lt;/a&gt;Репутация, имидж банка&lt;/h2&gt;</code></pre>
+                    <p>В пунктах оглавления ссылки:</p>
+<pre><code>&lt;p style="text-align: left;"&gt;
+    &lt;b&gt;Содержание:&lt;/b&gt;
+    &lt;a href="#razdel1"&gt;Возраст банка&lt;/a&gt; •
+    &lt;a href="#razdel2"&gt;Репутация, имидж банка&lt;/a&gt;
+&lt;/p&gt;</code></pre>
+                </div>
+
+                <div class="step">
+                    <div class="step-title"><span class="step-num">2</span> Добавляем ссылку «в начало»</div>
+<pre><code>&lt;h1&gt;&lt;a name="top"&gt;&lt;/a&gt;Выбор обслуживающего банка&lt;/h1&gt;</code></pre>
+<pre><code>&lt;p style="text-align: right;"&gt;&lt;a href="#top"&gt;↑ в начало&lt;/a&gt;&lt;/p&gt;</code></pre>
+                </div>
+
+                <div class="step">
+                    <div class="step-title"><span class="step-num">3</span> Создаём файл index.html с табличной разметкой</div>
+<pre><code>&lt;!DOCTYPE html&gt;
+&lt;html lang="ru"&gt;
+&lt;head&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;title&gt;Главная страница сайта&lt;/title&gt;
+&lt;/head&gt;
+&lt;body style="background-color: #E6F0FA; margin: 0;"&gt;
+    &lt;table style="width: 100%; border-collapse: collapse;"&gt;
+        &lt;tr&gt;
+            &lt;td colspan="2" style="background-color: #003C71;
+                                   color: white; padding: 20px;
+                                   text-align: center; font-size: 22px;"&gt;
+                &lt;b&gt;Наш банк&lt;/b&gt;
+            &lt;/td&gt;
+        &lt;/tr&gt;
+        &lt;tr&gt;
+            &lt;td style="width: 20%; background-color: #0072BC;
+                       color: white; padding: 15px;
+                       vertical-align: top;"&gt;
+                &lt;p&gt;&lt;a href="index.html" style="color: white;"&gt;Главная&lt;/a&gt;&lt;/p&gt;
+                &lt;p&gt;&lt;a href="#" style="color: white;"&gt;Раздел 1&lt;/a&gt;&lt;/p&gt;
+                &lt;p&gt;&lt;a href="page2.html" style="color: white;"&gt;Раздел 2&lt;/a&gt;&lt;/p&gt;
+                &lt;p&gt;&lt;a href="page4.html" style="color: white;"&gt;Раздел 4&lt;/a&gt;&lt;/p&gt;
+                &lt;p&gt;&lt;a href="bank.html" style="color: white;"&gt;Раздел 5&lt;/a&gt;&lt;/p&gt;
+            &lt;/td&gt;
+            &lt;td style="padding: 25px; vertical-align: top;"&gt;
+                &lt;h1&gt;Задачи, система и функции кредитных организаций&lt;/h1&gt;
+                &lt;p&gt;Кредитная организация — юридическое лицо...&lt;/p&gt;
+            &lt;/td&gt;
+        &lt;/tr&gt;
+        &lt;tr&gt;
+            &lt;td colspan="2" style="background-color: #003C71;
+                                   color: white; padding: 15px;
+                                   text-align: center;"&gt;
+                © 2026 Учебный сайт
+            &lt;/td&gt;
+        &lt;/tr&gt;
+    &lt;/table&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+                </div>
+
+                <div class="step">
+                    <div class="step-title"><span class="step-num">4</span> Проверяем работу ссылок</div>
+                    <div class="browser-mockup">
+                        <div class="browser-toolbar"><div class="nav-btns">◀ ▶ ⟳</div><div class="url">file:///C:/site/index.html</div></div>
+                        <div class="browser-content" style="padding: 0; font-family: Arial, sans-serif;">
+                            <table style="width: 100%; border-collapse: collapse;">
+                                <tr><td colspan="2" style="background: #003C71; color: #fff; padding: 14px; text-align: center; font-weight: bold;">Наш банк</td></tr>
+                                <tr>
+                                    <td style="width: 22%; background: #0072BC; color: #fff; padding: 12px; vertical-align: top; font-size: 12px;">
+                                        <p style="margin: 4px 0;">Главная</p>
+                                        <p style="margin: 4px 0;">Раздел 1</p>
+                                        <p style="margin: 4px 0;">Раздел 2</p>
+                                    </td>
+                                    <td style="padding: 18px; vertical-align: top; font-size: 12px;">
+                                        <b style="color: #003C71;">Задачи, система и функции кредитных организаций</b>
+                                        <p style="margin-top: 8px;">Кредитная организация — юридическое лицо...</p>
+                                    </td>
+                                </tr>
+                                <tr><td colspan="2" style="background: #003C71; color: #fff; padding: 10px; text-align: center; font-size: 12px;">© 2026 Учебный сайт</td></tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="note"><strong>Совет:</strong> имя файла в <code>href</code> должно точно совпадать с именем файла на диске.</div>
+            </div>
+        </div>
+
+        <div class="page" id="page-lab5">
+            <div class="card">
+                <h2>Лабораторная работа №5</h2>
+                <p class="subtitle">Объединение HTML-страниц в сайт с единым стилем</p>
+                <h3>Цель работы</h3>
+                <p>Научиться объединять отдельные HTML-страницы в единый сайт с общим стилем оформления.</p>
+                <h3>Краткое задание</h3>
+                <ol>
+                    <li>Привести HTML-страницы к единому стилю, взяв за основу <code>index.html</code>.</li>
+                    <li>Добавить ссылку на информацию об авторе сайта.</li>
+                    <li>Проверить тег <code>&lt;title&gt;</code> и метаданные на каждой странице.</li>
+                </ol>
+
+                <h3>Подробная пошаговая инструкция</h3>
+
+                <div class="step">
+                    <div class="step-title"><span class="step-num">1</span> Открываем index.html</div>
+                    <p>Этот файл станет основой для единого стиля всех страниц сайта.</p>
+                </div>
+
+                <div class="step">
+                    <div class="step-title"><span class="step-num">2</span> Размещаем логотип и название в шапке</div>
+<pre><code>&lt;td colspan="2" style="background-color: #003C71; padding: 15px;"&gt;
+    &lt;table style="width: 100%;"&gt;
+        &lt;tr&gt;
+            &lt;td&gt;&lt;img src="logo.jpg" alt="Логотип" height="50"&gt;&lt;/td&gt;
+            &lt;td style="text-align: right; color: white; font-size: 20px;"&gt;
+                &lt;b&gt;Название компании&lt;/b&gt;
+            &lt;/td&gt;
+        &lt;/tr&gt;
+    &lt;/table&gt;
+&lt;/td&gt;</code></pre>
+                </div>
+
+                <div class="step">
+                    <div class="step-title"><span class="step-num">3</span> Добавляем ссылку на страницу автора</div>
+<pre><code>&lt;td colspan="2" style="background-color: #003C71; color: white;
+                       padding: 15px; text-align: center;"&gt;
+    © 2026 Учебный сайт |
+    &lt;a href="contacts.html" style="color: #A8D4F5;"&gt;
+        Автор: Иванов И. И.
+    &lt;/a&gt;
+&lt;/td&gt;</code></pre>
+                </div>
+
+                <div class="step">
+                    <div class="step-title"><span class="step-num">4</span> Проверяем метаданные</div>
+<pre><code>&lt;head&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;meta name="description" content="Выбор обслуживающего банка — раздел сайта"&gt;
+    &lt;meta name="keywords" content="банк, кредит, рейтинг"&gt;
+    &lt;meta name="author" content="Иванов Иван Иванович"&gt;
+    &lt;title&gt;Выбор обслуживающего банка&lt;/title&gt;
+&lt;/head&gt;</code></pre>
+                </div>
+
+                <div class="step">
+                    <div class="step-title"><span class="step-num">5</span> Создаём шаблон template.html</div>
+                    <p>Удалите содержимое правой ячейки и сохраните как <code>template.html</code> — это будет «заготовка» для всех страниц.</p>
+                </div>
+
+                <div class="step">
+                    <div class="step-title"><span class="step-num">6</span> Вставляем содержимое других страниц в шаблон</div>
+                    <p>Из каждой страницы (<code>contacts.html</code>, <code>bank.html</code>, <code>page2.html</code>, <code>page4.html</code>) скопируйте <b>только содержимое</b> из <code>&lt;body&gt;</code> в правую ячейку шаблона. Сохраните.</p>
+                    <div class="tip"><strong>Принцип:</strong> шапка и меню одинаковы, меняется только содержимое справа.</div>
+                </div>
+
+                <div class="step">
+                    <div class="step-title"><span class="step-num">7</span> Проверяем единый стиль</div>
+                    <div class="browser-mockup">
+                        <div class="browser-toolbar"><div class="nav-btns">◀ ▶ ⟳</div><div class="url">file:///C:/site/index.html</div></div>
+                        <div class="browser-content" style="padding: 0; font-family: Arial, sans-serif;">
+                            <table style="width: 100%; border-collapse: collapse;">
+                                <tr>
+                                    <td colspan="2" style="background: #003C71; color: #fff; padding: 14px;">
+                                        <table style="width: 100%;">
+                                            <tr>
+                                                <td style="color: #fff; font-weight: bold;">Логотип</td>
+                                                <td style="text-align: right; color: #fff; font-weight: bold;">Название компании</td>
+                                            </tr>
+                                        </table>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="width: 22%; background: #0072BC; color: #fff; padding: 12px; vertical-align: top; font-size: 12px;">
+                                        <p style="margin: 4px 0;">Главная</p>
+                                        <p style="margin: 4px 0;">Раздел 1</p>
+                                    </td>
+                                    <td style="padding: 18px; vertical-align: top; font-size: 12px;">
+                                        <b style="color: #003C71;">Добро пожаловать на сайт!</b>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2" style="background: #003C71; color: #fff; padding: 10px; text-align: center; font-size: 12px;">
+                                        © 2026 Учебный сайт | <span style="color: #A8D4F5;">Автор: Иванов И. И.</span>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="note"><strong>Внимание:</strong> перед началом работы сделайте резервную копию всех файлов.</div>
+            </div>
+        </div>
+
+    </main>
+</div>
+
+<!-- ==================== ПОДВАЛ ==================== -->
+<footer>
+    <p>© 2026 Лабораторные работы по дисциплине «Информатика» — НИТУ МИСИС |
+       <a href="files/methodichka.doc" download>Скачать методичку</a>
+    </p>
+</footer>
+
+<script>
+    const menuLinks = document.querySelectorAll('.menu a[data-page]');
+    const welcomeCards = document.querySelectorAll('.welcome-card[data-page]');
+    const pages = document.querySelectorAll('.page');
+
+    function showPage(pageId) {
+        pages.forEach(function (page) { page.classList.remove('active'); });
+        const target = document.getElementById('page-' + pageId);
+        if (target) target.classList.add('active');
+
+        menuLinks.forEach(function (link) {
+            link.classList.remove('active');
+            if (link.dataset.page === pageId) link.classList.add('active');
+        });
+
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    menuLinks.forEach(function (link) {
+        link.addEventListener('click', function (e) {
+            e.preventDefault();
+            showPage(this.dataset.page);
+        });
+    });
+
+    welcomeCards.forEach(function (card) {
+        card.addEventListener('click', function () {
+            showPage(this.dataset.page);
+        });
+    });
+
+    function handleHash() {
+        const hash = window.location.hash.replace('#', '');
+        if (hash && document.getElementById('page-' + hash)) {
+            showPage(hash);
+        }
+    }
+    window.addEventListener('hashchange', handleHash);
+    handleHash();
+</script>
+
+</body>
+</html>
